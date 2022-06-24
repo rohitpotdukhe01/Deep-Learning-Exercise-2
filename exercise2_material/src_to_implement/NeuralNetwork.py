@@ -1,5 +1,6 @@
 import copy as cp
 
+
 class NeuralNetwork():
     def __init__(self, optimizer, weight_initializers, bias_initializers):
         self.optimizer = optimizer
@@ -10,7 +11,7 @@ class NeuralNetwork():
         self.next_input = None
         self.labels_input = None
         self.weight_initializers = weight_initializers
-        self.bais_initializers = bias_initializers
+        self.bias_initializers = bias_initializers
         self.output = None
 
     def forward(self):
@@ -29,7 +30,7 @@ class NeuralNetwork():
     def append_layer(self, layer):
         if layer.trainable:
             layer.optimizer = cp.deepcopy(self.optimizer)
-            layer.initializers(self.weight_initializers,self.bais_initializers)
+            layer.initialize(self.weight_initializers, self.bias_initializers)
         self.layers.append(layer)
 
     def train(self, iterations):
